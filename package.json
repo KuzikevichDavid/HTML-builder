@@ -2,8 +2,10 @@
   "name": "html-builder",
   "version": "1.0.0",
   "description": "html-builder task for RSSchool",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint ./src/**/*.js --fix",
+    "format": "prettier --write \"src/**/*.js\""
   },
   "author": "evgeniimal",
   "license": "ISC",
