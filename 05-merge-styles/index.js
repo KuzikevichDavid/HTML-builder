@@ -1,25 +1,9 @@
-import { opendir } from 'node:fs/promises'
+import { opendir } from 'node:fs/promises';
 import { parse } from 'node:path';
 import { createReadStream, createWriteStream } from 'node:fs';
+import { finished } from 'node:stream/promises';
 
-const files = [];
-let curFile = 0;
 const outStream = createWriteStream('./05-merge-styles/project-dist/bundle.css');
-
-const writeNext = () => {
-  const stream = createReadStream(files[curFile]);
-  stream.once('end', onEnd);
-  stream.pipe(outStream, { end: false });
-}
-
-const onEnd = () => {
-  if (curFile < files.length) {
-    writeNext();
-    curFile += 1;
-  } else {
-    outStream.end();
-  }
-};
 
 const path = './05-merge-styles/styles/';
 const dir = await opendir(path);
@@ -28,9 +12,11 @@ for await (const dirent of dir) {
     const filePath = path + dirent.name;
     const pathObj = parse(filePath);
     if (pathObj.ext === '.css') {
-      files.push(filePath);
+      const stream = createReadStream(filePath);
+      stream.pipe(outStream, { end: false });
+      await finished(stream);
     }
   }
 }
 
-writeNext();
+outStream.end();
