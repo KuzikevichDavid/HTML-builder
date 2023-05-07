@@ -1,4 +1,4 @@
-import { createReadStream } from 'node:fs'
+import { createReadStream } from 'node:fs';
 import { pipeline } from 'node:stream/promises';
 
 const read = async (outStream, path) => {

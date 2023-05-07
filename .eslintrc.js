@@ -1,14 +1,24 @@
 module.exports = {
   'env': {
-    'commonjs': true,
     'es2022': true,
     'node': true
   },
-  'extends': 'eslint:recommended',
-  'parserOptions': {
-    'ecmaVersion': 12
+  "extends": [
+    "airbnb-base",
+    "eslint:recommended",
+    "prettier"],
+  "plugins": [
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   'rules': {
+    'consistent-return': 0,
+    'no-restricted-syntax': 0,
+    'no-await-in-loop': 0,
+    'no-console': 0,
     'indent': [
       'error',
       2

@@ -3,7 +3,9 @@ import { parse } from 'node:path';
 import { createReadStream, createWriteStream } from 'node:fs';
 import { finished } from 'node:stream/promises';
 
-const outStream = createWriteStream('./05-merge-styles/project-dist/bundle.css');
+const outStream = createWriteStream(
+  './05-merge-styles/project-dist/bundle.css',
+);
 
 const path = './05-merge-styles/styles/';
 const dir = await opendir(path);
